@@ -10,7 +10,7 @@ export class TickRepository {
     return this.ticks;
   }
 
-  findOrCreateWithInverval(intervalInMs: number): Tick {
+  findOrCreate(intervalInMs: number): Tick {
     const findedTick = this.ticks.find(
       (tick) => tick.intervalInMs === intervalInMs,
     );
@@ -24,16 +24,16 @@ export class TickRepository {
     return createdTick;
   }
 
-  removeMemberIdInInterval(memberId: string, intervalInMs: number) {
+  removeTickMemberInTickInterval(memberId: string, intervalInMs: number) {
     const tick = this.ticks.find((tick) => tick.intervalInMs === intervalInMs);
 
     if (!tick) return;
 
     tick.dropMemberById(memberId);
 
-    const isTickEmpty = tick.allMembers().length === 0;
+    const hasNoLongerMembers = tick.allMembers().length === 0;
 
-    if (isTickEmpty) {
+    if (hasNoLongerMembers) {
       tick.destructor();
       this.ticks = this.ticks.filter((_tick) => _tick.id !== tick.id);
     }

@@ -1,3 +1,4 @@
+import { Player } from 'src/model/player.model';
 import { PlayerRepository } from './player.repository';
 
 describe('PlayerRepository', () => {
@@ -6,10 +7,9 @@ describe('PlayerRepository', () => {
 
     expect(repository.all().length).toBe(0);
 
-    repository.addPlayer({
-      socketId: 'socket-123',
-      moveTickId: 'tick-123',
-    });
+    const player = new Player(0, 0);
+
+    repository.addPlayer('socket-123', player);
 
     expect(repository.all().length).toBe(1);
 
