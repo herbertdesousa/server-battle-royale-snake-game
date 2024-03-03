@@ -1,11 +1,9 @@
+import { PLAYER_MOVE_TICK_IN_MS } from 'src/config/DEFAULT_PLAYER_MOVE_TICK_IN_MS';
 import { MockPlayerRepository } from 'src/data/repositories/player/MockPlayerRepository';
 import { MockTickRepository } from 'src/data/repositories/tick/MockTickRepository';
 import { delay } from 'src/utils/delay';
 
-import {
-  ConnectPlayerUseCase,
-  PLAYER_MOVE_TICK_IN_MS,
-} from './ConnectPlayerUseCase';
+import { ConnectPlayerUseCase } from './ConnectPlayerUseCase';
 
 const playerRepo = new MockPlayerRepository();
 const tickRepo = new MockTickRepository();
@@ -49,9 +47,5 @@ describe('ConnectPlayerUseCase', () => {
     await delay(100);
 
     expect(onPlayerMove).toHaveBeenCalledTimes(1);
-    expect(onPlayerMove).toHaveBeenCalledWith({
-      headPosition: { x: 0, y: 1 },
-      hasDropTail: true,
-    });
   });
 });

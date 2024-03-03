@@ -1,7 +1,7 @@
+import { PLAYER_MOVE_TICK_IN_MS } from 'src/config/DEFAULT_PLAYER_MOVE_TICK_IN_MS';
 import { MockPlayerRepository } from 'src/data/repositories/player/MockPlayerRepository';
 import { MockTickRepository } from 'src/data/repositories/tick/MockTickRepository';
 
-import { PLAYER_MOVE_TICK_IN_MS } from './ConnectPlayerUseCase';
 import { DisconnectPlayerUseCase } from './DisconnectPlayerUseCase';
 
 const playerRepo = new MockPlayerRepository();
