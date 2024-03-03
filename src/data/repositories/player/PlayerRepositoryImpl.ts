@@ -3,25 +3,25 @@ import { Player } from 'src/domain/model/Player';
 
 import { IPlayerRepository } from './IPlayerRespository';
 
-type MapPlayerIdSocketId = Record<string, string>;
+type MapSocketIdPlayer = Record<string, Player>;
 
 @Injectable()
 export class PlayerRepositoryImpl implements IPlayerRepository {
-  private players: Player[] = [];
-  private playerSocket: MapPlayerIdSocketId = {};
+  private players: MapSocketIdPlayer = {};
 
   all() {
-    return this.players;
+    return Object.values(this.players).map((player) => player);
   }
 
-  addPlayer(socketId: string, payload: Player) {
-    this.playerSocket[payload.id] = socketId;
-    this.players.push(payload);
+  findPlayerBySocketId(socketId: string): Player {
+    return this.players[socketId];
+  }
+
+  addPlayer(socketId: string, player: Player) {
+    this.players[socketId] = player;
   }
 
   dropPlayerBySocketId(socketId: string) {
-    this.players = this.players.filter(
-      (player) => this.playerSocket[player.id] !== socketId,
-    );
+    delete this.players[socketId];
   }
 }

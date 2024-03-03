@@ -10,12 +10,15 @@ describe('PlayerRepository', () => {
 
     const player = new Player(0, 0);
 
-    repository.addPlayer('socket-123', player);
+    const socketId = 'socket-123';
+    repository.addPlayer(socketId, player);
 
+    expect(repository.findPlayerBySocketId(socketId)).toBeTruthy();
     expect(repository.all().length).toBe(1);
 
-    repository.dropPlayerBySocketId('socket-123');
+    repository.dropPlayerBySocketId(socketId);
 
+    expect(repository.findPlayerBySocketId(socketId)).not.toBeTruthy();
     expect(repository.all().length).toBe(0);
   });
 });
