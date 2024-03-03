@@ -1,11 +1,11 @@
 import { Global, Module } from '@nestjs/common';
 
-import { OnPlayerConnectUseCase } from './OnPlayerConnectUseCase';
-import { OnPlayerDisconnectUseCase } from './OnPlayerDisconnectUseCase';
+import { ConnectPlayerUseCase } from './ConnectPlayerUseCase';
+import { DisconnectPlayerUseCase } from './DisconnectPlayerUseCase';
 
 @Global()
 @Module({
-  providers: [OnPlayerConnectUseCase, OnPlayerDisconnectUseCase],
-  exports: [OnPlayerConnectUseCase, OnPlayerDisconnectUseCase],
+  providers: [ConnectPlayerUseCase, DisconnectPlayerUseCase],
+  exports: [ConnectPlayerUseCase, DisconnectPlayerUseCase],
 })
 export class UseCasesModule {}

@@ -3,16 +3,16 @@ import { MockTickRepository } from 'src/data/repositories/tick/MockTickRepositor
 import { delay } from 'src/utils/delay';
 
 import {
-  OnPlayerConnectUseCase,
+  ConnectPlayerUseCase,
   PLAYER_MOVE_TICK_IN_MS,
-} from './OnPlayerConnectUseCase';
+} from './ConnectPlayerUseCase';
 
 const playerRepo = new MockPlayerRepository();
 const tickRepo = new MockTickRepository();
 
-const usecase = new OnPlayerConnectUseCase(playerRepo, tickRepo);
+const usecase = new ConnectPlayerUseCase(playerRepo, tickRepo);
 
-describe('OnPlayerConnectUseCase', () => {
+describe('ConnectPlayerUseCase', () => {
   it('should be able to connect player', async () => {
     const socketId = 'id-123';
 

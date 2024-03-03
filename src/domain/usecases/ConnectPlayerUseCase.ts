@@ -18,7 +18,7 @@ type Res = IResult;
 export const PLAYER_MOVE_TICK_IN_MS = 1000;
 
 @Injectable()
-export class OnPlayerConnectUseCase implements IUseCase<Req, Res> {
+export class ConnectPlayerUseCase implements IUseCase<Req, Res> {
   constructor(
     @Inject('PLAYER_REPOSITORY')
     private playerRepository: IPlayerRepository,

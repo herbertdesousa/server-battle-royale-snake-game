@@ -1,15 +1,15 @@
 import { MockPlayerRepository } from 'src/data/repositories/player/MockPlayerRepository';
 import { MockTickRepository } from 'src/data/repositories/tick/MockTickRepository';
 
-import { PLAYER_MOVE_TICK_IN_MS } from './OnPlayerConnectUseCase';
-import { OnPlayerDisconnectUseCase } from './OnPlayerDisconnectUseCase';
+import { PLAYER_MOVE_TICK_IN_MS } from './ConnectPlayerUseCase';
+import { DisconnectPlayerUseCase } from './DisconnectPlayerUseCase';
 
 const playerRepo = new MockPlayerRepository();
 const tickRepo = new MockTickRepository();
 
-const usecase = new OnPlayerDisconnectUseCase(playerRepo, tickRepo);
+const usecase = new DisconnectPlayerUseCase(playerRepo, tickRepo);
 
-describe('OnPlayerDisconnectUseCase', () => {
+describe('DisconnectPlayerUseCase', () => {
   it('should be able to disconnect player', async () => {
     const socketId = 'id-123';
 

@@ -1,18 +1,18 @@
 import { ConnectedSocket, WebSocketGateway } from '@nestjs/websockets';
 import { Socket } from 'socket.io';
-import { OnPlayerConnectUseCase } from 'src/domain/usecases/OnPlayerConnectUseCase';
-import { OnPlayerDisconnectUseCase } from 'src/domain/usecases/OnPlayerDisconnectUseCase';
+import { ConnectPlayerUseCase } from 'src/domain/usecases/ConnectPlayerUseCase';
+import { DisconnectPlayerUseCase } from 'src/domain/usecases/DisconnectPlayerUseCase';
 
 @WebSocketGateway({ transports: ['websocket'] })
 export class PlayerGateway {
   constructor(
-    private onPlayerConnectUseCase: OnPlayerConnectUseCase,
+    private connectPlayerUseCase: ConnectPlayerUseCase,
 
-    private onPlayerDisconnectUseCase: OnPlayerDisconnectUseCase,
+    private disconnectPlayerUseCase: DisconnectPlayerUseCase,
   ) {}
 
   async handleConnection(@ConnectedSocket() client: Socket) {
-    await this.onPlayerConnectUseCase.execute({
+    await this.connectPlayerUseCase.execute({
       socketId: client.id,
       onPlayerMove: ({ headPosition, hasDropTail }) => {
         client.emit('PLAYER_MOVE', { headPosition, hasDropTail });
@@ -21,7 +21,7 @@ export class PlayerGateway {
   }
 
   async handleDisconnect(@ConnectedSocket() client: Socket) {
-    await this.onPlayerDisconnectUseCase.execute({
+    await this.disconnectPlayerUseCase.execute({
       socketId: client.id,
     });
   }
