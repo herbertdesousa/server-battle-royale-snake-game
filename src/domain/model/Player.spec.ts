@@ -52,22 +52,40 @@ describe('PlayerModel', () => {
 
     expect(player.direction).toBe(PlayerDirection.UP);
 
+    // UP -NO-> DOWN
     player.direction = PlayerDirection.DOWN;
-
+    expect(player.direction).toBe(PlayerDirection.UP);
+    player.move();
     expect(player.direction).toBe(PlayerDirection.UP);
 
+    // UP -YES-> LEFT
     player.direction = PlayerDirection.LEFT;
+    expect(player.direction).toBe(PlayerDirection.UP);
+    player.move();
+    expect(player.direction).toBe(PlayerDirection.LEFT);
+
+    // LEFT -YES-> DOWN
     player.direction = PlayerDirection.DOWN;
-
+    expect(player.direction).toBe(PlayerDirection.LEFT);
+    player.move();
     expect(player.direction).toBe(PlayerDirection.DOWN);
 
+    // DOWN -NO-> UP
     player.direction = PlayerDirection.UP;
-
+    expect(player.direction).toBe(PlayerDirection.DOWN);
+    player.move();
     expect(player.direction).toBe(PlayerDirection.DOWN);
 
-    player.direction = PlayerDirection.LEFT;
-    player.direction = PlayerDirection.UP;
+    // DOWN -YES-> RIGHT
+    player.direction = PlayerDirection.RIGHT;
+    expect(player.direction).toBe(PlayerDirection.DOWN);
+    player.move();
+    expect(player.direction).toBe(PlayerDirection.RIGHT);
 
+    // RIGHT -YES-> UP
+    player.direction = PlayerDirection.UP;
+    expect(player.direction).toBe(PlayerDirection.RIGHT);
+    player.move();
     expect(player.direction).toBe(PlayerDirection.UP);
   });
 
@@ -76,27 +94,41 @@ describe('PlayerModel', () => {
 
     expect(player.direction).toBe(PlayerDirection.UP);
 
+    // UP -YES-> RIGHT
     player.direction = PlayerDirection.RIGHT;
-
+    expect(player.direction).toBe(PlayerDirection.UP);
+    player.move();
     expect(player.direction).toBe(PlayerDirection.RIGHT);
 
+    // RIGHT -NO-> LEFT
     player.direction = PlayerDirection.LEFT;
-
+    expect(player.direction).toBe(PlayerDirection.RIGHT);
+    player.move();
     expect(player.direction).toBe(PlayerDirection.RIGHT);
 
+    // RIGHT -YES-> DOWN
     player.direction = PlayerDirection.DOWN;
-    player.direction = PlayerDirection.LEFT;
+    expect(player.direction).toBe(PlayerDirection.RIGHT);
+    player.move();
+    expect(player.direction).toBe(PlayerDirection.DOWN);
 
+    // DOWN -YES-> LEFT
+    player.direction = PlayerDirection.LEFT;
+    expect(player.direction).toBe(PlayerDirection.DOWN);
+    player.move();
     expect(player.direction).toBe(PlayerDirection.LEFT);
 
+    // LEFT -NO-> RIGHT
     player.direction = PlayerDirection.RIGHT;
-
+    expect(player.direction).toBe(PlayerDirection.LEFT);
+    player.move();
     expect(player.direction).toBe(PlayerDirection.LEFT);
 
-    player.direction = PlayerDirection.DOWN;
-    player.direction = PlayerDirection.RIGHT;
-
-    expect(player.direction).toBe(PlayerDirection.RIGHT);
+    // LEFT -YES-> UP
+    player.direction = PlayerDirection.UP;
+    expect(player.direction).toBe(PlayerDirection.LEFT);
+    player.move();
+    expect(player.direction).toBe(PlayerDirection.UP);
   });
 
   it('able to player move upwards', () => {
@@ -147,12 +179,12 @@ describe('PlayerModel', () => {
       X = empty space
       0 = player
 
-      from         to
-      X X X X X    X X X X X
-      0 0 0 X X    X 0 0 X X
-      X X X X X    X X 0 X X
-      X X X X X    X X X X X
-      X X X X X    X X X X X
+      from                    to
+      X X X X X   X X X X X   X X X X X
+      x x 0 X X   X 0 0 X X   X 0 0 X X
+      X X 0 X X   X X 0 X X   X 0 X X X
+      X X 0 X X   X X X X X   X X X X X
+      X X X X X   X X X X X   X X X X X
     */
 
     const player = new Player(0, 0);
@@ -161,14 +193,12 @@ describe('PlayerModel', () => {
     const beforeMoveTailId = player.tail.id;
 
     expect(eachCell(player.head)).toBe(3);
-    player.head.position = { x: 0, y: 0 };
-    player.head.previousCell.position = { x: -1, y: 0 };
-    player.head.previousCell.previousCell.position = { x: -2, y: 0 };
 
     player.direction = PlayerDirection.LEFT;
-    player.direction = PlayerDirection.DOWN;
-    expect(player.direction).toBe(PlayerDirection.DOWN);
     player.move();
+    player.direction = PlayerDirection.DOWN;
+    player.move();
+    expect(player.direction).toBe(PlayerDirection.DOWN);
 
     expect(eachCell(player.head)).toBe(3);
     expect(player.cells.length).toBe(3);
@@ -176,10 +206,10 @@ describe('PlayerModel', () => {
     expect(beforeMoveHeadId).not.toBe(player.head.id);
     expect(beforeMoveTailId).not.toBe(player.tail.id);
 
-    expect(player.head.position).toEqual({ x: 0, y: -1 });
-    expect(player.head.previousCell.position).toEqual({ x: 0, y: 0 });
+    expect(player.head.position).toEqual({ x: -1, y: -1 });
+    expect(player.head.previousCell.position).toEqual({ x: -1, y: 0 });
     expect(player.head.previousCell.previousCell.position).toEqual({
-      x: -1,
+      x: 0,
       y: 0,
     });
   });
@@ -211,8 +241,8 @@ describe('PlayerModel', () => {
     });
 
     player.direction = PlayerDirection.LEFT;
-    expect(player.direction).toBe(PlayerDirection.LEFT);
     player.move();
+    expect(player.direction).toBe(PlayerDirection.LEFT);
 
     expect(eachCell(player.head)).toBe(3);
     expect(player.cells.length).toBe(3);
@@ -255,8 +285,8 @@ describe('PlayerModel', () => {
     });
 
     player.direction = PlayerDirection.RIGHT;
-    expect(player.direction).toBe(PlayerDirection.RIGHT);
     player.move();
+    expect(player.direction).toBe(PlayerDirection.RIGHT);
 
     expect(eachCell(player.head)).toBe(3);
     expect(player.cells.length).toBe(3);

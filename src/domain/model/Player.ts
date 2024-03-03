@@ -38,6 +38,8 @@ export class Player {
   id = randomUUID();
 
   private _direction: PlayerDirection = PlayerDirection.UP;
+  private nextDirection: PlayerDirection = this._direction;
+
   public get direction() {
     return this._direction;
   }
@@ -50,7 +52,7 @@ export class Player {
 
     if (directionInX && checkDirectionInX(value)) return;
 
-    this._direction = value;
+    this.nextDirection = value;
   }
 
   head: PlayerCell;
@@ -93,7 +95,7 @@ export class Player {
   }
 
   move() {
-    switch (this.direction) {
+    switch (this.nextDirection) {
       case PlayerDirection.UP:
         this.addHead({ ...this.head.position, y: this.head.position.y + 1 });
         this.removeTail();
@@ -114,5 +116,7 @@ export class Player {
         this.removeTail();
         break;
     }
+
+    this._direction = this.nextDirection;
   }
 }
