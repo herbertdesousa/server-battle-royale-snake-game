@@ -1,9 +1,11 @@
 import { Module } from '@nestjs/common';
-import { RepositoriesModule } from './repositories/repositories.module';
-import { HelloWorldGateway } from './ws/hello-world.gateway';
+
+import { RepositoriesModule } from './data/repositories/repositories.module';
+import { UseCasesModule } from './domain/usecases/usecases.module';
+import { PlayerGateway } from './ws/PlayerGateway';
 
 @Module({
-  imports: [RepositoriesModule, HelloWorldGateway],
+  imports: [RepositoriesModule, UseCasesModule, PlayerGateway],
   controllers: [],
   providers: [],
 })

@@ -1,9 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { randomUUID } from 'crypto';
-import { Tick } from 'src/model/tick.model';
+import { Tick } from 'src/domain/model/Tick';
+import { ITickRepository } from './ITickRepository';
 
 @Injectable()
-export class TickRepository {
+export class TickRepositoryImpl implements ITickRepository {
   private ticks: Tick[] = [];
 
   all(): Tick[] {

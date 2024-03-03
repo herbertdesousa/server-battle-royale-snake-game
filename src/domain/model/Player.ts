@@ -1,5 +1,7 @@
 import { randomUUID } from 'crypto';
 
+import { TransformPosition } from './TransformPosition';
+
 function checkDirectionInY(direction: PlayerDirection) {
   return direction === PlayerDirection.UP || direction === PlayerDirection.DOWN;
 }
@@ -15,11 +17,6 @@ export enum PlayerDirection {
   DOWN,
   LEFT,
   RIGHT,
-}
-
-class TransformPosition {
-  x: number;
-  y: number;
 }
 
 export class PlayerCell {

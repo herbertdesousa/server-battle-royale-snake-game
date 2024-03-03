@@ -1,4 +1,4 @@
-import { Player, PlayerCell, PlayerDirection } from './player.model';
+import { Player, PlayerCell, PlayerDirection } from './Player';
 
 // passing through each cell and return amount of cells counted
 function eachCell(cell: PlayerCell) {

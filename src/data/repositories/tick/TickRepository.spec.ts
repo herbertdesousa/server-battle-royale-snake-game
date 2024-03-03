@@ -1,8 +1,8 @@
-import { TickRepository } from './tick.repository';
+import { TickRepositoryImpl } from './TickRepositoryImpl';
 
 describe('TickRepository', () => {
   it('able to find or create a tick providing interval', () => {
-    const repository = new TickRepository();
+    const repository = new TickRepositoryImpl();
 
     expect(repository.all().length).toBe(0);
 
@@ -21,7 +21,7 @@ describe('TickRepository', () => {
   });
 
   it('able to remove member with id in tick with interval', () => {
-    const repository = new TickRepository();
+    const repository = new TickRepositoryImpl();
 
     const tick = repository.findOrCreate(1000);
 
@@ -36,7 +36,7 @@ describe('TickRepository', () => {
   });
 
   it('able to ignore when remove tick with interval not existing', () => {
-    const repository = new TickRepository();
+    const repository = new TickRepositoryImpl();
 
     expect(repository.all().length).toBe(0);
 

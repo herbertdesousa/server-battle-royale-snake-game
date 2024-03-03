@@ -1,9 +1,10 @@
-import { Player } from 'src/model/player.model';
-import { PlayerRepository } from './player.repository';
+import { Player } from 'src/domain/model/Player';
+
+import { PlayerRepositoryImpl } from './PlayerRepositoryImpl';
 
 describe('PlayerRepository', () => {
   it('able to add and remove player', () => {
-    const repository = new PlayerRepository();
+    const repository = new PlayerRepositoryImpl();
 
     expect(repository.all().length).toBe(0);
 

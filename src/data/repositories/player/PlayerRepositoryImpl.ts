@@ -1,14 +1,16 @@
 import { Injectable } from '@nestjs/common';
-import { Player } from 'src/model/player.model';
+import { Player } from 'src/domain/model/Player';
+
+import { IPlayerRepository } from './IPlayerRespository';
 
 type MapPlayerIdSocketId = Record<string, string>;
 
 @Injectable()
-export class PlayerRepository {
+export class PlayerRepositoryImpl implements IPlayerRepository {
   private players: Player[] = [];
   private playerSocket: MapPlayerIdSocketId = {};
 
-  all(): Player[] {
+  all() {
     return this.players;
   }
 
